@@ -9,6 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bitcore": "git+https://git@github.com/bitpay/bitcore.git"
+    "bitcoind-rpc": "^0.2.1",
+    "bitcore": "^0.10.3",
+    "bitcore-p2p": "^0.10.0",
+    "es6-native-set": "^1.0.2",
+    "events": "^1.0.2",
+    "net": "^1.0.2",
+    "p2p-manager": "^0.1.0",
+    "p2p-node": "^0.1.1",
+    "util": "^0.10.3"
   }
 }

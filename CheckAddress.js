@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 var bitcore = require('bitcore');
-var getRPC = require('./transactionTools');
+var getRPC = require('./transactionTools').getRPC;
 
 /**
- * Returns If the outputs are safe.
+ * Returns true If the outputs are safe.
 * @return {boolean} If the outputs are safe.
  */
 var Check_output_address = function(rawtx) {
@@ -29,7 +29,7 @@ var Check_output_address = function(rawtx) {
     return true;
 };
 
-var Main = function(err, rawtx) {
+var rawtx_callback = function(err, rawtx) {
     if (err){
         console.log(err);
         return;
@@ -74,7 +74,7 @@ if(!txid) {
 }
 if (!PATH) PATH = process.env.HOME+ '/.bitcoin/bitcoin.conf';
 var client = getRPC(PATH);
-client.getrawtransaction(txid, Main);
+client.getrawtransaction(txid, rawtx_callback);
 
 // Hex codes of the address
 BlackList = [['06f1b6', '06f1b6', 'SatoshiDice'],

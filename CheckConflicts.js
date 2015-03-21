@@ -1,46 +1,76 @@
+var Set = require('es6-native-set');
 var bitcore = require('bitcore');
+var transport = require('bitcore-p2p');
+var getInput = require('./transactionTools').getInput;
+var PeerManager = require('p2p-manager').PeerManager;
+var Peer = transport.Peer;
+//var addresss = ['replace-by-fee1.bitcoin.petertodd.org',
+//    'replace-by-fee2.bitcoin.petertodd.org',
+//    'replace-by-fee3.bitcoin.petertodd.org',
+//    'replace-by-fee4.bitcoin.petertodd.org'];
+pm = new PeerManager();
+pm.addPool("replace-by-fee4.bitcoin.petertodd.org");
+//console.log(peerManage.activePeerCount);
+//console.log(peerManage.activePeers);
+//console.log(peerManage.poolPeers);
+//console.log(peerManage.badPeers);
+/*
+var peer_list = [];
+for (var i = 0; i < addresss.length; i++) {
+    peer_list.push(new Peer(addresss[i]));
+}
+for (var i = 0; i < peer_list.length; i++) {
+    var peer = peer_list[i];
+    console.log(peer);
+    peer.on('ready', function() {
+        console.log(peer.version, peer.subversion, peer.bestHeight);
+        message = new transport.Messages.GetMempool();
+        peer.sendMessage(message);
+    });
 
-var Peer = bitcore.transport.Peer;
+    peer.on('disconnect', function() {
+        console.log('connection closed');
+    });
+
+    peer.on('inv', function(message) {
+        var Myset = new Set();
+        var dict = {};
+        for(var i = 0; i < message.inventory.length; i++) {
+            var txhash = message.inventory[i].hash.toString('hex').match(/../g).reverse().join('');
+            Myset.add(txhash);
+        }
+        console.log(Myset);
+        //Myset.forEach(function(value) {
+        //    inputs = getInput(value);
+        //    if (inputs instanceof Error) console.log(inputs);
+        //    else dict[value] = getInput(value);
+        //});
+    });
+    peer.connect();
+    console.log('connected')
+}
 
 // default port
-//peer = new Peer('5.9.85.34'); //seed.bitcoin.sipa.be
-peer = new Peer('seed.bitcoin.sipa.be');
+/*
+peer = new Peer(dns.dnsSeeds[0]).setProxy('127.0.0.1', 9050); //seed.bitcoin.sipa.be
+//peer = new Peer(dns, bitcore.livenet).setProxy('localhost', 9050);
 
 peer.on('ready', function() {
     console.log(peer.version, peer.subversion, peer.bestHeight);
-    var message = new bitcore.transport.Messages.GetMempool();
+    message = new transport.Messages.GetMempool();
     peer.sendMessage(message);
 });
 
 peer.on('disconnect', function() {
     console.log('connection closed');
 });
-
-//// handle events
-//peer.on('inv', function(message) {
-//    console.log(message.inventory);
-//    // message.inventory[]
-//});
-//peer.on('tx', function(message) {
-//    console.log(message.transaction);
-//    // message.transaction
-//});
-
+var set = new Set();
 peer.on('inv', function(message) {
-
     for(var i = 0; i < message.inventory.length; i++) {
         var txhash = message.inventory[i].hash.toString('hex').match(/../g).reverse().join('');
-
-        console.log(txhash);
+        set.add(txhash);
     }
-
-    //var txhash = message.inventory[0].hash.toString('hex');
-    //var txhash2 = message.inventory[0].hash.toString('hex').match(/../g).reverse().join('');
-    //console.log('before: ' + txhash + ' after: ' + txhash2);
-    //var transaction = new bitcore.Transaction();
-    //console.log(txhash.toString('hex'));
-    //console.log(message.inventory[0]);
-    // message.addresses[]
 });
 
 peer.connect();
+*/
